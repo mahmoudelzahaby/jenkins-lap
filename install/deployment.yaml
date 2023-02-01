@@ -18,7 +18,7 @@ spec:
             runAsUser: 1000
       initContainers:
         - name: install-docker
-          image: docker 
+          image: docker:stable
           command: ["cp", "usr/local/bin/docker", "/data/docker" ]
           volumeMounts:
           - name: docker
@@ -46,22 +46,22 @@ spec:
               containerPort: 8080
             - name: jnlpport
               containerPort: 50000
-          livenessProbe:
-            httpGet:
-              path: "/login"
-              port: 8080
-            initialDelaySeconds: 90
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 5
-          readinessProbe:
-            httpGet:
-              path: "/login"
-              port: 8080
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
+          # livenessProbe:
+          #   httpGet:
+          #     path: "/login"
+          #     port: 8080
+          #   initialDelaySeconds: 90
+          #   periodSeconds: 10
+          #   timeoutSeconds: 5
+          #   failureThreshold: 5
+          # readinessProbe:
+          #   httpGet:
+          #     path: "/login"
+          #     port: 8080
+          #   initialDelaySeconds: 60
+          #   periodSeconds: 10
+          #   timeoutSeconds: 5
+          #   failureThreshold: 3
           volumeMounts:
             - name: jenkins-data
               mountPath: /var/jenkins_home
