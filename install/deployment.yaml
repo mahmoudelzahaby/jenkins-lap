@@ -15,7 +15,7 @@ spec:
     spec:
       securityContext:
             fsGroup: 1000
-            runAsUser: 1000
+            runAsUser: 0
       initContainers:
         - name: install-docker
           image: docker:stable
@@ -54,14 +54,17 @@ spec:
           #   periodSeconds: 10
           #   timeoutSeconds: 5
           #   failureThreshold: 5
-          # readinessProbe:
-          #   httpGet:
-          #     path: "/login"
-          #     port: 8080
-          #   initialDelaySeconds: 60
-          #   periodSeconds: 10
-          #   timeoutSeconds: 5
-          #   failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: "/login"
+              port: 8080
+              scheme: HTTP
+            # initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 2
+            timeoutSeconds: 5
+            failureThreshold: 5
+
           volumeMounts:
             - name: jenkins-data
               mountPath: /var/jenkins_home
