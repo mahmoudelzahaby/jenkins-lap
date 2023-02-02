@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'build'
                 sh "ls"
-                // sh "docker ps"
+                sh "docker ps"
             }
         }
         stage('test') {
